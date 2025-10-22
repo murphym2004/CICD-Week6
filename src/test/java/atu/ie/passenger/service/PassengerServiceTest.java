@@ -1,5 +1,6 @@
 package atu.ie.passenger.service;
 
+import atu.ie.passenger.Controller.errorHandlin.DuplicateException;
 import atu.ie.passenger.model.Passenger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,12 +37,13 @@ public class PassengerServiceTest {
                 .Email("b@atu.ie")
                 .build());
 
-        assertThrows(IllegalStateException.class, () ->
+        assertThrows(DuplicateException.class, () ->
             service.create(Passenger.builder()
                     .PassengerId("p2")
                     .Name("bob")
                     .Email("b@atu.ie")
                     .build()));
+
 
     }
 @Test

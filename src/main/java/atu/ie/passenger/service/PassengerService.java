@@ -1,4 +1,6 @@
 package atu.ie.passenger.service;
+import atu.ie.passenger.Controller.errorHandlin.DuplicateException;
+import atu.ie.passenger.Controller.errorHandlin.FindException;
 import atu.ie.passenger.model.Passenger;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +25,9 @@ public class PassengerService {
     }
 
     public Passenger create(Passenger p) {
+
         if (findById(p.getPassengerId()).isPresent()) {
-            throw new IllegalStateException("Passenger with id " + p.getPassengerId() + " already exists");
+            throw new DuplicateException("Passenger with id: " + p.getPassengerId() + " already exists");
 
         }
         store.add(p);
