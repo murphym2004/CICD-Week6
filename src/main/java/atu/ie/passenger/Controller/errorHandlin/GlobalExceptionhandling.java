@@ -6,10 +6,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@RestControllerAdvice
 @RestController
 public class GlobalExceptionhandling {
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -30,5 +31,12 @@ public class GlobalExceptionhandling {
         exceptionDetails.setFieldName("passenger id");
         exceptionDetails.setFieldValue(de.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exceptionDetails);
+    }
+    @ExceptionHandler(FindException.class)
+    public ResponseEntity<ExceptionDetails> showFindError(FindException fe) {
+        ExceptionDetails exceptionDetails = new ExceptionDetails();
+        exceptionDetails.setFieldName("passenger id");
+        exceptionDetails.setFieldValue(fe.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionDetails);
     }
 }
