@@ -1,5 +1,6 @@
 package atu.ie.passenger.Controller;
 
+import atu.ie.passenger.Controller.errorHandlin.FindException;
 import atu.ie.passenger.model.Passenger;
 import atu.ie.passenger.service.PassengerService;
 import jakarta.validation.Valid;
@@ -30,7 +31,7 @@ public class PassengerController {
         Optional<Passenger> maybe = service.findById(id);
         if (maybe.isPresent()) {
             return ResponseEntity.ok(maybe.get());
-        } else {return ResponseEntity.notFound().build();
+        } else {throw new FindException("Passenger not found", "passengerId");
     }
 }
 @PostMapping
